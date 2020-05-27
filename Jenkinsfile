@@ -4,7 +4,7 @@ pipeline {
     stage('Build Docker image') {
       steps{
         script {
-           docker build "Dockerfile:1" 
+           sh "docker build --no-cache -f Dockerfile ." 
            sh "docker images"
         }
       }
