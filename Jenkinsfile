@@ -23,7 +23,9 @@ pipeline {
           if(params.DockerImage == 'All'){
             echo 'All has been selected';
           }
-          else if(params.DockerImage == 'Dockerfile')
+          else if(params.DockerImage == 'Dockerfile'){
+            echo 'All has been selected';
+          }
           else{
             sh "docker build --no-cache -t 700707367057.dkr.ecr.us-east-1.amazonaws.com/php-demo:latest -f Dockerfile ." 
             sh "docker images"
