@@ -25,9 +25,9 @@ def parallelStagesMap = allServices.collectEntries {
 //    ["${it}" : generateStage(it)]
 //}
 
-def phpDemoStagesMap = phpDemoService.collectEntries {
-    ["${it}" : generateStage(it)]
-}
+//def phpDemoStagesMap = phpDemoService.collectEntries {
+//    ["${it}" : generateStage(it)]
+//}
 
 branchName = "${env.BRANCH_NAME}"
 tagName = ""
@@ -59,7 +59,7 @@ def generateStage(service) {
 pipeline {
     agent any
     parameters {
-        choice(name: 'DockerImage', choices: ['All', allServices[4], 'gateway', 'users', 'plans', 'integrations'], description: 'Select a docker image to build')
+        choice(name: 'DockerImage', choices: ['All', allServices[0], allServices[1], allServices[2], allServices[3], allServices[4]], description: 'Select a docker image to build')
     }
     stages {
         stage('parallel stage') {
@@ -71,7 +71,7 @@ pipeline {
                   else{
 		     echo "Calling generateStage"			  
                      //generateStage(params.DockerImage)
-		     parallel phpDemoStagesMap
+			  def singleStage = { ["${params.DockerImage}": generateStage("${params.DockerImage}")]}
 		     echo "End Calling generateStage"	
                   }
                 }
