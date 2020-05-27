@@ -1,3 +1,94 @@
+def allServices=["gateway", "users", "plans", "integrations", "php-demo"]
+//def gatewayService=["gateway"]
+//def usersService=["users"]
+//def plansService=["plans"]
+//def integrationsService=["integrations"]
+//def dockerfileService=["Dockerfile"]
+
+//def parallelStagesMap = allServices.collectEntries {
+//    ["${it}" : generateStage(it)]
+//}
+
+//def gatewayStagesMap = gatewayService.collectEntries {
+//    ["${it}" : generateStage(it)]
+//}
+
+//def usersStagesMap = usersService.collectEntries {
+//    ["${it}" : generateStage(it)]
+//}
+
+//def plansStagesMap = plansService.collectEntries {
+//    ["${it}" : generateStage(it)]
+//}
+
+//def integrationsStagesMap = integrationsService.collectEntries {
+//    ["${it}" : generateStage(it)]
+//}
+
+//def dockerStagesMap = dockerfileService.collectEntries {
+//    ["${it}" : generateStage(it)]
+//}
+
+branchName = "${env.BRANCH_NAME}"
+tagName = ""
+if(branchName == "master")
+	tagName = "latest"
+else tagName = branchName.replaceAll("/","-")
+		
+def generateStage(service) {
+    return {
+      stage("Build ${service}"){
+		     sh "docker build --no-cache -t 700707367057.dkr.ecr.us-east-1.amazonaws.com/${service}:${tagName} -f Dockerfile ."
+      }
+      stage("Push ${service}"){
+                  sh "eval \$(aws ecr get-login --no-include-email --region us-east-1)"
+                  sh "docker push 700707367057.dkr.ecr.us-east-1.amazonaws.com/${service}:${tagName}"
+      }
+      stage("Deploy ${service}"){
+        if(branchName == "master"){
+         //deploy to eks cluster
+        }
+        else{
+         sh "./dev-php-demo-ecs-deploy.sh ${service} ${tagName}"
+        }
+      }
+    }
+}
+
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'DockerImage', choices: ['All', 'php-demo', 'gateway', 'users', 'plans', 'integrations'], description: 'Select a docker image to build')
+    }
+    stages {
+        stage('parallel stage') {
+            steps {
+                script {
+                  if(params.DockerImage = 'All'){
+                    parallel parallelStagesMap
+                  }
+                  else{
+                     generateStage(params.DockerImage)
+                  }
+                }
+            }
+        }
+        stage('CleanWorkspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('CleanSystem') {
+            steps {
+                sh "docker system prune --force"
+            }
+        }
+    }
+}
+
+/*
+=================================================================================
+
 pipeline {
   agent any
   parameters {
@@ -50,3 +141,4 @@ pipeline {
     }    
   }
 }
+*/
