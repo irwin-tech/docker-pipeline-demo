@@ -3,7 +3,7 @@ def allServices=["gateway", "users", "plans", "integrations", "php-demo"]
 //def usersService=["users"]
 //def plansService=["plans"]
 //def integrationsService=["integrations"]
-def phpDemoService = allServices[4]
+def phpDemoService = [allServices[4]]
 
 def parallelStagesMap = allServices.collectEntries {
     ["${it}" : generateStage(it)]
