@@ -5,9 +5,9 @@ def allServices=["gateway", "users", "plans", "integrations", "php-demo"]
 //def integrationsService=["integrations"]
 //def dockerfileService=["Dockerfile"]
 
-//def parallelStagesMap = allServices.collectEntries {
-//    ["${it}" : generateStage(it)]
-//}
+def parallelStagesMap = allServices.collectEntries {
+    ["${it}" : generateStage(it)]
+}
 
 //def gatewayStagesMap = gatewayService.collectEntries {
 //    ["${it}" : generateStage(it)]
