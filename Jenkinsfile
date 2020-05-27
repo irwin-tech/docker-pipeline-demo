@@ -20,7 +20,7 @@ pipeline {
      stage('Deploy Docker image') {
        steps{
         script {
-         bash './ecs-deploy.sh "php-demo" "latest"'
+         sh './ecs-deploy.sh'
        }
       }
     }    
