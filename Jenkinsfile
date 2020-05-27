@@ -12,7 +12,7 @@ pipeline {
     stage('Push Docker image') {
       steps{
         script {
-          sh "eval \$(aws ecr get-login --no-include-email --region us-east-1)"
+          sh "$aws ecr get-login --no-include-email --region us-east-1"
           sh "docker push 700707367057.dkr.ecr.us-east-1.amazonaws.com/dockerimage"
         }
       }
