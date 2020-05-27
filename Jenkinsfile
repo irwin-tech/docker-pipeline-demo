@@ -3,7 +3,7 @@ def allServices=["gateway", "users", "plans", "integrations", "php-demo"]
 //def usersService=["users"]
 //def plansService=["plans"]
 //def integrationsService=["integrations"]
-//def dockerfileService=["Dockerfile"]
+def phpDemoService=["php-demo"]
 
 def parallelStagesMap = allServices.collectEntries {
     ["${it}" : generateStage(it)]
@@ -25,9 +25,9 @@ def parallelStagesMap = allServices.collectEntries {
 //    ["${it}" : generateStage(it)]
 //}
 
-//def dockerStagesMap = dockerfileService.collectEntries {
-//    ["${it}" : generateStage(it)]
-//}
+def phpDemoStagesMap = phpDemoService.collectEntries {
+    ["${it}" : generateStage(it)]
+}
 
 branchName = "${env.BRANCH_NAME}"
 tagName = ""
@@ -70,7 +70,8 @@ pipeline {
                   }
                   else{
 		     echo "Calling generateStage"			  
-                     generateStage(params.DockerImage)
+                     //generateStage(params.DockerImage)
+		     parallel phpDemoStagesMap
 		     echo "End Calling generateStage"	
                   }
                 }
