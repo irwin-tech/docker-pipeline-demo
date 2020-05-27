@@ -10,9 +10,13 @@ pipeline {
       }
     }
      stage('Push Docker image') {
-       docker.withRegistry('700707367057.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credential') {
-         sh "docker push 700707367057.dkr.ecr.us-east-1.amazonaws.com/php-demo:latest"
+       steps{
+        script {
+         docker.withRegistry('700707367057.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credential') {
+           sh "docker push 700707367057.dkr.ecr.us-east-1.amazonaws.com/php-demo:latest"
+         }
        }
+      }
     }    
   }
 }
