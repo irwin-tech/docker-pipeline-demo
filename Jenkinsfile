@@ -3,7 +3,7 @@ def allServices=["gateway", "users", "plans", "integrations", "php-demo"]
 //def usersService=["users"]
 //def plansService=["plans"]
 //def integrationsService=["integrations"]
-def phpDemoService=["php-demo"]
+def phpDemoService = allServices[4]
 
 def parallelStagesMap = allServices.collectEntries {
     ["${it}" : generateStage(it)]
@@ -59,7 +59,7 @@ def generateStage(service) {
 pipeline {
     agent any
     parameters {
-        choice(name: 'DockerImage', choices: ['All', 'php-demo', 'gateway', 'users', 'plans', 'integrations'], description: 'Select a docker image to build')
+        choice(name: 'DockerImage', choices: ['All', allServices[4], 'gateway', 'users', 'plans', 'integrations'], description: 'Select a docker image to build')
     }
     stages {
         stage('parallel stage') {
