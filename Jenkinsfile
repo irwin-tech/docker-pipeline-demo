@@ -64,7 +64,7 @@ pipeline {
         stage('parallel stage') {
             steps {
                 script {
-                  if(params.DockerImage = 'All'){
+                  if(params.DockerImage == 'All'){
                     parallel parallelStagesMap
                   }
                   else{
