@@ -38,11 +38,12 @@ else tagName = branchName.replaceAll("/","-")
 def generateStage(service) {
     return {
       stage("Build ${service}"){
-		     sh "docker build --no-cache -t 700707367057.dkr.ecr.us-east-1.amazonaws.com/${service}:${tagName} -f Dockerfile ."
+	      sh 'echo "Building ${service}"'
+	      sh "docker build --no-cache -t 700707367057.dkr.ecr.us-east-1.amazonaws.com/${service}:${tagName} -f Dockerfile ."
       }
       stage("Push ${service}"){
-                  sh "eval \$(aws ecr get-login --no-include-email --region us-east-1)"
-                  sh "docker push 700707367057.dkr.ecr.us-east-1.amazonaws.com/${service}:${tagName}"
+              sh "eval \$(aws ecr get-login --no-include-email --region us-east-1)"
+              sh "docker push 700707367057.dkr.ecr.us-east-1.amazonaws.com/${service}:${tagName}"
       }
       stage("Deploy ${service}"){
         if(branchName == "master"){
