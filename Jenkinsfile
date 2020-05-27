@@ -71,7 +71,7 @@ pipeline {
                   else{
 		     echo "Calling generateStage"			  
                      //generateStage(params.DockerImage)
-			  def singleStage = { ["${params.DockerImage}": generateStage("${params.DockerImage}")]}
+			  def singleStage = { ["${params.DockerImage}" : generateStage(params.DockerImage)] }
 		     echo "End Calling generateStage"	
                   }
                 }
