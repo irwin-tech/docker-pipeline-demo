@@ -17,6 +17,13 @@ pipeline {
          }
        }
       }
+    }
+     stage('Push Docker image') {
+       steps{
+        script {
+         sh './ecs-deploy.sh "php-demo" "latest"'
+       }
+      }
     }    
   }
 }
