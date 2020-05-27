@@ -69,9 +69,9 @@ pipeline {
                     parallel parallelStagesMap
                   }
                   else{
-		     sh "Calling generateStage"			  
+		     echo "Calling generateStage"			  
                      generateStage(params.DockerImage)
-		     sh "End Calling generateStage"	
+		     echo "End Calling generateStage"	
                   }
                 }
             }
