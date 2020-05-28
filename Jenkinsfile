@@ -68,17 +68,13 @@ def generateStage(service) {
         else{
 		 // Define Variable
              def USER_INPUT = input(
-                    message: 'Do you want to deploy to dev ecs?',
-                    parameters: [
-                            [$class: 'ChoiceParameterDefinition',
-                             choices: ['no','yes'].join('\n'),
-                             name: 'input',
-                             description: 'Menu - select box option']
-                    ])
+                    message: 'Do you want to deploy to dev ecs?', parameters: [
+        	    booleanParam(defaultValue: false, description: 'Please Confirm', name: 'Confirmation')
+                    )
 
             echo "The answer is: ${USER_INPUT}"
 
-            if( "${USER_INPUT}" == "yes"){
+            if( "${USER_INPUT}" == true){
                 sh "./dev-php-demo-ecs-deploy.sh ${service} ${tagName}"
             } else {
                 echo 'deployment aborted'
