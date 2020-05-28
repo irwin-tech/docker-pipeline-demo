@@ -86,7 +86,7 @@ pipeline {
                   }
                   else{
 		     echo "Calling generateStage"			  
-                     phpDemoStagesMap
+                     parallel phpDemoStagesMap
 			  //def singleStage = { ["${params.DockerImage}" : generateStage(params.DockerImage)] }
 		     echo "End Calling generateStage"	
                   }
