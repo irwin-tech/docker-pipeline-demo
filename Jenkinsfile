@@ -47,7 +47,23 @@ def generateStage(service) {
       }
       stage("Deploy ${service}"){
         if(branchName == "master"){
-         //deploy to eks cluster
+	     // Define Variable
+             def USER_INPUT = input(
+                    message: 'Do you want to deploy to production?',
+                    parameters: [
+                            [$class: 'ChoiceParameterDefinition',
+                             choices: ['no','yes'].join('\n'),
+                             name: 'input',
+                             description: 'Menu - select box option']
+                    ])
+
+            echo "The answer is: ${USER_INPUT}"
+
+            if( "${USER_INPUT}" == "yes"){
+                //deploy to eks cluster
+            } else {
+                //do nothing.
+            }
         }
         else{
          sh "./dev-php-demo-ecs-deploy.sh ${service} ${tagName}"
@@ -70,7 +86,7 @@ pipeline {
                   }
                   else{
 		     echo "Calling generateStage"			  
-                     parallel phpDemoStagesMap
+                     phpDemoStagesMap
 			  //def singleStage = { ["${params.DockerImage}" : generateStage(params.DockerImage)] }
 		     echo "End Calling generateStage"	
                   }
