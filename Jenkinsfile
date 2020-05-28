@@ -108,7 +108,7 @@ pipeline {
         success { 
             echo 'build success! sending the status to github'
 	    script {
-		    sh 'curl \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT?access_token=cbedb1e35788dbb9ea952d25098de30b120eb3b5\" -H \"Content-Type: application/json\" -X POST -d \"{\\"state\\": \\"success\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/${env.BRANCH_NAME}/$BUILD_NUMBER/console\\"}\" '
+		    sh 'curl \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT?access_token=cbedb1e35788dbb9ea952d25098de30b120eb3b5\" -H \"Content-Type: application/json\" -X POST -d \"{\\"state\\": \\"success\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$branchName/$BUILD_NUMBER/console\\"}\" '
 		}
 	    
 
@@ -116,7 +116,7 @@ pipeline {
 	failure { 
             echo 'build failure! sending the status to github'
 	     script {
-		    sh 'curl \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT?access_token=cbedb1e35788dbb9ea952d25098de30b120eb3b5\" -H \"Content-Type: application/json\" -X POST -d \"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/${env.BRANCH_NAME}/$BUILD_NUMBER/console\\"}\" '
+		    sh 'curl \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT?access_token=cbedb1e35788dbb9ea952d25098de30b120eb3b5\" -H \"Content-Type: application/json\" -X POST -d \"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$branchName/$BUILD_NUMBER/console\\"}\" '
 		}
 
         }
