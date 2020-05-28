@@ -70,7 +70,7 @@ def generateStage(service) {
              def USER_INPUT = input(
                     message: 'Do you want to deploy to dev ecs?', parameters: [
         	    booleanParam(defaultValue: false, description: 'Please Confirm', name: 'Confirmation')
-                    )
+                    ])
 
             echo "The answer is: ${USER_INPUT}"
 
