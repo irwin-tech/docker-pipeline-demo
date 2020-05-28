@@ -38,7 +38,7 @@ else tagName = branchName.replaceAll("/","-")
 def generateStage(service) {
     return {
       stage("Build ${service}"){
-	      sh 'echo "Building ${service}"'
+	      echo "Building ${service}"
 	      sh "docker build --no-cache -t 700707367057.dkr.ecr.us-east-1.amazonaws.com/${service}:${tagName} -f Dockerfile ."
       }
       stage("Push ${service}"){
@@ -66,7 +66,24 @@ def generateStage(service) {
             }
         }
         else{
-         sh "./dev-php-demo-ecs-deploy.sh ${service} ${tagName}"
+		 // Define Variable
+             def USER_INPUT = input(
+                    message: 'Do you want to deploy to dev ecs?',
+                    parameters: [
+                            [$class: 'ChoiceParameterDefinition',
+                             choices: ['no','yes'].join('\n'),
+                             name: 'input',
+                             description: 'Menu - select box option']
+                    ])
+
+            echo "The answer is: ${USER_INPUT}"
+
+            if( "${USER_INPUT}" == "yes"){
+                sh "./dev-php-demo-ecs-deploy.sh ${service} ${tagName}"
+            } else {
+                echo 'deployment aborted'
+            }
+         
         }
       }
     }
