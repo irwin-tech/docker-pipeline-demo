@@ -175,6 +175,7 @@ pipeline {
      stage('Deploy Docker image') {
        steps{
         script {
+	 sh "chmod +x ./dev-php-demo-ecs-deploy.sh"
          sh "./dev-php-demo-ecs-deploy.sh"
        }
       }
