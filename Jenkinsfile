@@ -63,8 +63,8 @@ def generateStage(service) {
             }
         }
         else{
-            sh "chmod +x ./dev-php-demo-ecs-deploy.sh"
-	    sh "./dev-php-demo-ecs-deploy.sh ${service} ${tagName}"
+            //sh "chmod +x ./dev-php-demo-ecs-deploy.sh"
+	    sh "bash ./dev-php-demo-ecs-deploy.sh ${service} ${tagName}"
         }
       }
     }
