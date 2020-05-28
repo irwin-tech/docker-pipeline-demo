@@ -108,7 +108,7 @@ pipeline {
         success { 
             echo 'build success! sending the status to github'
 	    script {
-		    sh 'curl \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" -H \"Content-Type: application/json\" -H \"Authorization: token 8c6d16ffe6dec822da1e10584dcb0cfb7156c4fa\" -X POST -d \"{\\"state\\": \\"success\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\" '
+		    sh 'curl -v -H \"Content-Type: application/json\" -H \"Authorization: token de0b10dddfe04803f48a1c2a694706fe894398ae\" -X POST -d \"{\\"state\\": \\"success\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\" \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" '
 		}
 	    
 
@@ -116,7 +116,7 @@ pipeline {
 	failure { 
             echo 'build failure! sending the status to github'
 	     script {
-		    sh 'curl \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" -H \"Content-Type: application/json\" -H \"Authorization: token 8c6d16ffe6dec822da1e10584dcb0cfb7156c4fa\" -X POST -d \"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\" '
+		    sh 'curl -v -H \"Content-Type: application/json\" -H \"Authorization: token de0b10dddfe04803f48a1c2a694706fe894398ae\" -X POST -d \"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\" \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" '
 		}
 
         }
