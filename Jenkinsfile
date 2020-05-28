@@ -108,7 +108,7 @@ pipeline {
         success { 
             echo 'build success! sending the status to github'
 	    script {
-		    sh 'curl -v -H \"Content-Type: application/json\" -H \"Authorization: token ${GIT_PAT}\" -X POST -d \"{\\"state\\": \\"success\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/${env.BRANCH_NAME}/$BUILD_NUMBER/console\\"}\" \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" '
+		    sh 'curl -v -H \"Content-Type: application/json\" -H \"Authorization: token ${GIT_PAT}\" -X POST -d \"{\\"state\\": \\"success\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\" \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" '
 		}
 	    
 
@@ -116,7 +116,7 @@ pipeline {
 	failure { 
             echo 'build failure! sending the status to github'
 	     script {
-		     sh 'curl -v -H \"Content-Type: application/json\" -H \"Authorization: token ${GIT_PAT}\" -X POST -d \"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/\"${env.BRANCH_NAME}\"/$BUILD_NUMBER/console\\"}\" \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" '
+		     sh 'curl -v -H \"Content-Type: application/json\" -H \"Authorization: token ${GIT_PAT}\" -X POST -d \"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\" \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" '
 		}
 
         }
