@@ -116,7 +116,7 @@ pipeline {
 	failure { 
             echo 'build failure! sending the status to github'
 	     script {
-		    sh 'curl -u \"username:846cab710ab44855027684a040734032b5085ac4\" \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" -H \"Content-Type: application/json\" -X POST -d \"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$branchName/$BUILD_NUMBER/console\\"}\" '
+		    sh 'curl \"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT\" -H \"Content-Type: application/json\" -H \"Authorization: token f3843f9a49144626d2f114e4b4fde92dd0490765 \" -X POST -d \"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins build failed\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\" '
 		}
 
         }
