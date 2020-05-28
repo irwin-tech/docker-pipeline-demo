@@ -107,18 +107,23 @@ pipeline {
 	    //https://applitools.com/blog/how-to-update-jenkins-build-status-in-github-pull-requests-step-by-step-tutorial/
         success { 
             echo 'build success! sending the status to github'
-	    //curl "https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT?access_token=4511d2dbc6ed22fac39aca14dcfbdf18bdbd9725" \
-  		//	-H "Content-Type: application/json" \
-  		//	-X POST \
-  		//	-d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\"}"
+	    script {
+		    sh 'curl \\"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT?access_token=4511d2dbc6ed22fac39aca14dcfbdf18bdbd9725\\" \
+  			-H "Content-Type: application/json\\" \
+  			-X POST \
+  			-d \\"{\\"state\\": \\"success\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\\"'
+		}
+	    
 
         }
 	failure { 
             echo 'build failure! sending the status to github'
-	    //curl "https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT?access_token=4511d2dbc6ed22fac39aca14dcfbdf18bdbd9725" \
-  		//	-H "Content-Type: application/json" \
-  		//	-X POST \
-  		//	-d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\"}"
+	     script {
+		    sh 'curl \\"https://api.GitHub.com/repos/rezoan/docker-pipeline-demo/statuses/$GIT_COMMIT?access_token=4511d2dbc6ed22fac39aca14dcfbdf18bdbd9725\\" \
+  			-H "Content-Type: application/json\\" \
+  			-X POST \
+  			-d \\"{\\"state\\": \\"failure\\",\\"context\\": \\"continuous-integration/jenkins\\", \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"http://34.224.62.112:8080/job/multibranch-docker-pipeline-ci-cd/$BUILD_NUMBER/console\\"}\\"'
+		}
 
         }
 	//unsuccessful { 
